@@ -64,7 +64,10 @@ function sortIntoGroups () {
         }
 
         // lastName, firstName, school, interest, startDate
-        const person = line.split(',').map(unquote)
+        let person = line.split(',').map(unquote)
+        if (person.length !== 5) {
+            person = line.split('\t').map(unquote)
+        }
 
         const addedBySchool = addPersonToFirstUniqueGroup(person, 2)
         cl('addedBySchool', addedBySchool, person)
