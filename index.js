@@ -33,10 +33,10 @@ function sortIntoGroups () {
     const numGroups = Math.ceil(lines.length / groupSize)
 
     const groups = []
-    for (let i = 0; i < groupSize; i++) {
+    for (let i = 0; i < numGroups; i++) {
         groups[i] = []
     }
-    
+
     function addPersonToFirstOpenGroup (person) {
         for (const group of groups) {
             if (group.length < groupSize) {
@@ -70,7 +70,6 @@ function sortIntoGroups () {
         }
 
         const addedBySchool = addPersonToFirstUniqueGroup(person, 2)
-        cl('addedBySchool', addedBySchool, person)
         if (!addedBySchool) {
             const addedByInterest = addPersonToFirstUniqueGroup(person, 3)
             if (!addedByInterest) {
