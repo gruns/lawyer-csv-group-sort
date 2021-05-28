@@ -26,6 +26,26 @@ function groupContainsValue(group, person, column) {
     return false
 }
 
+// https://stackoverflow.com/a/2450976
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
+
 function sortIntoGroups () {
     const groupSize = parseInt(document.getElementById('group-size').value)
 
@@ -58,11 +78,16 @@ function sortIntoGroups () {
         return false
     }
 
+    const randomizedLines = []
     for (const line of lines) {
         if (!line.replace(/\s/g, '').length) { // whitespace
             continue
         }
+        randomizedLines.push(line)
+    }
+    shuffle(randomizedLines)
 
+    for (const line of randomizedLines) {
         // lastName, firstName, school, interest, startDate
         let person = line.split(',').map(unquote)
         if (person.length !== 5) {
